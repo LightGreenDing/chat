@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>聊天室2</title>
+    <base>
+    <!--<script type="text/javascript" src="js/jquery-1.8.2.js"></script>-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <!--<script type="text/javascript" src="js/socket.io-1.4.5.js"></script>-->
+    <!--<script src="ckeditor/ckeditor.js"></script>-->
+    <script src="https://cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.js"></script>
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        #console {
+            height: 300px;
+            overflow: auto;
+        }
+
+        .username-msg {
+            color: orange;
+        }
+
+        .connect-msg {
+            color: green;
+        }
+
+        .disconnect-msg {
+            color: red;
+        }
+
+        .send-msg {
+            color: #888
+        }
+    </style>
+</head>
+<body>
+<h1>测试聊天室2</h1>
+<!-- <br /> -->
+<div id="console" class="well"></div>
+<form class="well form-inline" onsubmit="return false;">
+    <button type="button" onClick="onConnect()" class="btn">连接</button>
+    <input id="msg" class="input-xlarge" placeholder="请输入内容"/>
+    <button type="button" onClick="sendMessage()" class="btn">发送</button>
+    <button type="button" onClick="sendDisconnect()" class="btn">下线</button>
+    <button type="button" onClick="reloadThis()" class="btn">重连</button>
+</form>
+</body>
+<script type="text/javascript">
+    var socket;
+    var account = "测试员2号";
+
+    function onConnect() {
+        connect();
+    }
+
+    function connect() {
+        var password = "222222";
+        var rm = "1";
+        var timeLong = new Date().getTime();
+        var sign = "account=" + account.toLowerCase() + "&password=" + password.toLowerCase() + "&timeLong=" + timeLong + "&rm=" + rm;
+        var signPd = md5(sign);
+        socket = io.connect("http://127.0.0.1:9999?account=" + account + "&timeLong=" + timeLong + "&pd=" + signPd + "&rm=" + rm);
+        socket.on('connect', function () {
+            serverOutput('<span class="disconnect-msg">' + '聊天室链接成功! </span>');
+        });
+        socket.on('disconnect', function () {
+            serverOutput('<span class="disconnect-msg">' + '当前已断开连接</span>');
+
+        });
+        //进入房间
+        socket.on('intoRoom', function (data) {
+            output('<span class="disconnect-msg">' + data + '</span>');
+        });
+        //聊天
+        socket.on('message', function (data) {
+            var formatTime = formatDateTime(data.time);
+            serverOutput('<span class="username-msg">' + data.account + '&nbsp;' + formatTime + ':' + data.content);
+
+        });
+        //获取历史聊天记录
+        socket.on('getHistoryMsgInfo', function (data) {
+            for (var key in data) {
+                var datum = data[key];
+                var formatTime = formatDateTime(datum.time);
+                serverOutput('<span class="username-msg">' + datum.account + '&nbsp;' + formatTime + ':' + datum.content);
+                var div = document.getElementById('console');
+                div.scrollTop = div.scrollHeight;
+            }
+        });
+        //获取是否是禁言用户
+        socket.on('chatBanned', function (data) {
+            if (data) {
+                serverOutput('<span class="disconnect-msg">没有发言权限</span>');
+            }
+        });
+        //客户离开房间事件
+        socket.on('customerLeave', function (data) {
+            if (data) {
+                serverOutput('<span class="disconnect-msg">离开房间</span>');
+            }
+        });
+        //客户端断开连接
+        socket.on('closed', function (data) {
+            if (data) {
+                serverOutput('<span class="disconnect-msg">data</span>');
+            }
+        });
+    }
+
+    function formatDateTime(date) {
+        return new Date(parseInt(date)).toLocaleString().replace(/:\d{1,2}$/, ' ');
+    };
+
+    function reloadThis() {
+        socket.disconnect();
+        connect();
+    }
+
+    function sendDisconnect() {
+        socket.emit('chatevent', {
+            userId: 1,
+            userName: $("#name").val(),
+            receiveUserId: 2,
+            content: "已下线!"
+        });
+        socket.disconnect();
+    }
+
+    function sendMessage() {
+        var message = $('#msg').val();
+        $('#msg').val('');
+        var jsonObject = {
+            account: account,
+            content: message
+        };
+        socket.emit('message', jsonObject);
+    }
+
+    function output(message) {
+        var element = $("<div>" + " " + message + "</div>");
+        $('#console').append(element);
+    }
+
+    function serverOutput(message) {
+        var element = $("<div>" + message + "</div>");
+        $('#console').append(element);
+    }
+
+</script>
+</html>
+</html>
