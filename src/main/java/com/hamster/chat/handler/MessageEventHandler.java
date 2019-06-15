@@ -13,7 +13,6 @@ import com.hamster.chat.service.ChatRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -68,7 +67,7 @@ public class MessageEventHandler implements CommandLineRunner {
         client.joinRoom(roomId);
         //往聊天室中发送进入房间信息
         BroadcastOperations roomOperations = socketIOServer.getRoomOperations(roomId);
-        roomOperations.sendEvent("intoRoom", account + "加入房间");
+        roomOperations.sendEvent("intoRoom", "欢迎:"+account + "加入房间");
         //获取历史消息发送给前台
         List<MsgInfo> msgInfos = chatRecordService.getChatRecordList(roomId);
         roomOperations.sendEvent("getHistoryMsgInfo", msgInfos);
@@ -98,7 +97,6 @@ public class MessageEventHandler implements CommandLineRunner {
      */
     @OnEvent(value = "message")
     public void onMessage(SocketIOClient client, MsgInfo msgInfo) {
-        System.out.println("交谈事件---" + msgInfo.getAccount() + ":" + msgInfo.getContent());
         String account = client.getHandshakeData().getSingleUrlParam("account");
         //房间号
         String rm = client.getHandshakeData().getSingleUrlParam("rm");

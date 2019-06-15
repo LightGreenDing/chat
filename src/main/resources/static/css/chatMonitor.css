@@ -1,0 +1,138 @@
+.RightCont{
+    -webkit-box-flex: 1;
+    overflow-y: scroll;
+    height: 480px;
+    position: relative;
+    display:block;
+}
+.RightCont li {
+    width:150px;
+    margin:10px;
+    display:inline-block;
+}
+.newsList {
+    box-sizing: border-box;
+}
+.clearfix:after{
+    display: table;
+    content: " ";
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix{
+    *zoom: 1;
+}
+.answers{
+    max-width: 65%;
+    height: auto;
+    word-wrap: break-word;
+    word-break: normal;
+    margin:0 auto;
+    line-height: 30px;
+    font-size: 14px;
+    border-radius:4px;
+    position: relative;
+}
+#news .picture, .answers .picture{
+    height: 80px;
+    margin: 7px;
+    max-width: 100%;
+}
+/*图片放大缩小*/
+.bigimg{
+    width:auto !important;
+    height:auto !important;
+    max-width:90% !important;
+    max-height:100% !important;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin:auto;
+    display: none;
+    z-index:9999;
+    /*border: 10px solid #fff;*/
+}
+.mask{
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity:0.5;
+    filter: Alpha(opacity=50);
+    z-index: 98;
+    transition:all 1s;
+    display: none;
+}
+.smallimg:hover {
+    cursor:zoom-in;
+}
+.mask:hover{
+    cursor:zoom-out;
+}
+
+.bigimg{
+    cursor:zoom-out;
+}
+/**/
+.news-header{
+    background: #c3fff9;
+    border-top: solid 1px #dddddd;
+}
+.news-header,
+.news-text{
+    margin: 0 15px;
+    border-right: solid 1px #dddddd;
+    border-bottom: solid 1px #dddddd;
+    border-left: solid 1px #dddddd;
+    box-sizing: border-box;
+    position: relative;
+}
+.news-header li{
+   height: 34px;
+   line-height:  34px;
+}
+.news-header li,
+.news-text li{
+    float: left;
+    width: 20%;
+    box-sizing: border-box;
+    text-align: center;
+}
+.news-header:before,
+.news-text:before{
+    width: 1px;
+    display: block;
+    content:"";
+    position: absolute;
+    top:0;
+    left: 20%;
+    height: 100%;
+    background: #dddddd;
+}
+.news-text li{
+    min-height: 30px;
+    line-height: 200%;
+}
+.news-header li:first-child,
+.news-text li:first-child{
+    border-left:none;
+}
+.news-header li:last-child,
+.news-text li:last-child{
+    width: 40%;
+    border-right: solid 1px #dddddd;
+}
+.news-text:nth-of-type(odd){
+    background: #f5f5f5;
+}
+
+
+
+
+
+

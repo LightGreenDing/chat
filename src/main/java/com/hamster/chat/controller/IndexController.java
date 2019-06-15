@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class IndexController {
     @GetMapping("/")
     public String index() {
-        return "html/index.html";
+        return "html/index2.html";
     }
 
     @GetMapping("/chat1")

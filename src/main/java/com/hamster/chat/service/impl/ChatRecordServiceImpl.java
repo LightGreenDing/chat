@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Service
 public class ChatRecordServiceImpl implements ChatRecordService {
-    @Autowired
+    @Resource
     private MongoTemplate mongoTemplate;
 
     @Override
