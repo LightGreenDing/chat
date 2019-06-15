@@ -3,6 +3,7 @@ package com.hamster.chat;
 import com.corundumstudio.socketio.*;
 import com.corundumstudio.socketio.annotation.SpringAnnotationScanner;
 import com.hamster.chat.exception.MessageExceptionListener;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import javax.annotation.PreDestroy;
 
 @SpringBootApplication
+@MapperScan("com.hamster.chat.dao")
 public class ChatApplication {
     @Value("${socket.host}")
     private String socketHost;

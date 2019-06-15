@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--<classPathEntry location="D:\java\repository\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar"/>-->
+    <context id="my" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!-- 指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="forceBigDecimals" value="false"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <!--覆盖生成XML文件-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+        <!-- 不生成注释 -->
+        <commentGenerator type="com.hamster.chat.config.MyCommentGenerator">
+            <!-- 是否生成注释代时间戳-->
+            <property name="suppressDate" value="false"/>
+            <!-- 是否取消注释 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/chat_demo?serverTimezone=UTC" userId="root"
+                        password="123456"/>
+        <!--生成Model类存放位置-->
+        <javaModelGenerator targetPackage="com.hamster.chat.model"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.hamster.chat.base.BaseEntity"/>
+        </javaModelGenerator>
+        <!--生成映射文件xml存放位置-->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成Dao类存放位置-->
+        <javaClientGenerator targetPackage="com.hamster.chat.dao"
+                             targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!--要生成dao mapper xml 的数据库表-->
+        <table tableName="user" domainObjectName="User"/>
+        <!--<table tableName="role" domainObjectName="Role"/>-->
+        <!--<table tableName="permission" domainObjectName="Permission"/>-->
+        <!--<table tableName="user_role" domainObjectName="UserRole"/>-->
+        <!--<table tableName="role_permission" domainObjectName="RolePermission"/>-->
+    </context>
+</generatorConfiguration>

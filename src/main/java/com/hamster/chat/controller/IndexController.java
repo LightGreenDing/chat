@@ -22,9 +22,5 @@ public class IndexController {
         return "html/chat2.html";
     }
 
-    @GetMapping("/login")
-    @ResponseBody
-    public String login() {
-        return "chat success";
-    }
+
 }
