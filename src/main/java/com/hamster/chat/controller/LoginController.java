@@ -1,6 +1,6 @@
 package com.hamster.chat.controller;
 
-import com.hamster.chat.base.ResponeResult;
+import com.hamster.chat.base.ResponseResult;
 import com.hamster.chat.base.ResultUtil;
 import com.hamster.chat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ public class LoginController {
     private UserService userService;
 
     @GetMapping("/login")
-    public ResponeResult login() {
+    public ResponseResult login() {
         return ResultUtil.success(userService.findUserByAccount("admin"));
     }
 }

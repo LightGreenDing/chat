@@ -1,6 +1,6 @@
 package com.hamster.chat.exception;
 
-import com.hamster.chat.base.ResponeResult;
+import com.hamster.chat.base.ResponseResult;
 import com.hamster.chat.enums.Enum_Response_Code;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -15,8 +15,8 @@ public class ExceptionHandle {
      * @return
      */
     @ExceptionHandler(value = Exception.class)
-    public ResponeResult errorHandler(Exception ex) {
-        ResponeResult result = new ResponeResult();
+    public ResponseResult errorHandler(Exception ex) {
+        ResponseResult result = new ResponseResult();
         result.setCode(Enum_Response_Code.系统错误.code);
         result.setMsg(Enum_Response_Code.系统错误.desc);
         return result;
@@ -29,8 +29,8 @@ public class ExceptionHandle {
      * @return
      */
     @ExceptionHandler(value = CustomizeException.class)
-    public ResponeResult myErrorHandler(CustomizeException ex) {
-        ResponeResult result = new ResponeResult();
+    public ResponseResult myErrorHandler(CustomizeException ex) {
+        ResponseResult result = new ResponseResult();
         result.setCode(ex.getCode());
         result.setMsg(ex.getMsg());
         return result;

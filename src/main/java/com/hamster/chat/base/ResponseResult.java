@@ -1,6 +1,6 @@
 package com.hamster.chat.base;
 
-public class ResponeResult<T> {
+public class ResponseResult<T> {
     /**
      * 错误码
      */
