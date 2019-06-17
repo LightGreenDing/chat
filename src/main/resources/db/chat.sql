@@ -11,13 +11,14 @@ CREATE TABLE `sys_user`
     `email`       varchar(100) DEFAULT NULL COMMENT '邮箱',
     `mobile`      varchar(100) DEFAULT NULL COMMENT '手机号',
     `status`      tinyint(4)   DEFAULT NULL COMMENT '状态  0：禁用   1：正常',
-    `dept_id`     bigint(20)   DEFAULT NULL COMMENT '部门ID',
     `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
     PRIMARY KEY (`user_id`),
     UNIQUE KEY `username` (`username`) USING BTREE
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8 COMMENT ='系统用户';
+INSERT INTO `sys_user` VALUES ('1', 'admin', 'e1153123d7d180ceeb820d577ff119876678732a68eef4e6ffc0b1f06a01f91b', 'YzcmCZNvbXocrsz9dm8e', 'hulang6666@qq.com', '13612345678', '1', '1', '2016-11-11 11:11:11');
+INSERT INTO `sys_role` VALUES ('1', '系统管理员', '系统管理员', '1', '2019-06-05 15:58:43');
 
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`

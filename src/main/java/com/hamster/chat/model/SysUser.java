@@ -40,11 +40,6 @@ public class SysUser extends BaseEntity {
     private Byte status;
 
     /**
-     * 部门ID
-     */
-    private Long deptId;
-
-    /**
      * 创建时间
      */
     private Date createTime;
@@ -159,22 +154,6 @@ public class SysUser extends BaseEntity {
      */
     public void setStatus(Byte status) {
         this.status = status;
-    }
-
-    /**
-     * 部门ID
-     * @return dept_id 部门ID
-     */
-    public Long getDeptId() {
-        return deptId;
-    }
-
-    /**
-     * 部门ID
-     * @param deptId 部门ID
-     */
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
     }
 
     /**

@@ -9,7 +9,6 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="dept_id" jdbcType="BIGINT" property="deptId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -71,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, username, password, salt, email, mobile, status, dept_id, create_time
+    user_id, username, password, salt, email, mobile, status, create_time
   </sql>
   <select id="selectByExample" parameterType="com.hamster.chat.model.SysUserExample" resultMap="BaseResultMap">
     select
@@ -96,12 +95,10 @@
   <insert id="insert" parameterType="com.hamster.chat.model.SysUser">
     insert into sys_user (user_id, username, password, 
       salt, email, mobile, 
-      status, dept_id, create_time
-      )
+      status, create_time)
     values (#{userId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{salt,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{deptId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}
-      )
+      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.hamster.chat.model.SysUser">
     insert into sys_user
@@ -126,9 +123,6 @@
       </if>
       <if test="status != null">
         status,
-      </if>
-      <if test="deptId != null">
-        dept_id,
       </if>
       <if test="createTime != null">
         create_time,
@@ -155,9 +149,6 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
-      </if>
-      <if test="deptId != null">
-        #{deptId,jdbcType=BIGINT},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -194,9 +185,6 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=TINYINT},
       </if>
-      <if test="record.deptId != null">
-        dept_id = #{record.deptId,jdbcType=BIGINT},
-      </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -214,7 +202,6 @@
       email = #{record.email,jdbcType=VARCHAR},
       mobile = #{record.mobile,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=TINYINT},
-      dept_id = #{record.deptId,jdbcType=BIGINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />

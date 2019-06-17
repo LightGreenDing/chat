@@ -22,5 +22,12 @@ public class ResultUtil {
         result.setMsg(msg);
         return result;
     }
+
+    public static ResponseResult error(String msg) {
+        ResponseResult result = new ResponseResult();
+        result.setCode(Enum_Response_Code.失败.code);
+        result.setMsg(msg);
+        return result;
+    }
 }
 
