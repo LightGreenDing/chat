@@ -13,6 +13,9 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.Set;
 
+/**
+ * 根据数据库实体生成模型和Mapper
+ */
 @Component
 public class MyCommentGenerator extends DefaultCommentGenerator {
 

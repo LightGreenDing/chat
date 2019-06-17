@@ -7,8 +7,17 @@ public class CustomizeException extends RuntimeException {
     private Integer code;
     private String msg;
 
+    public CustomizeException() {
+
+    }
+
     public CustomizeException(Integer code, String msg) {
         this.code = code;
+        this.msg = msg;
+    }
+
+    public CustomizeException(String msg) {
+        this.code = -1;
         this.msg = msg;
     }
 
