@@ -44,11 +44,12 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--要生成dao mapper xml 的数据库表-->
-<!--        <table tableName="user" domainObjectName="User"/>-->
-        <table tableName="sys_log" domainObjectName="SysLog"/>
-        <!--<table tableName="role" domainObjectName="Role"/>-->
-        <!--<table tableName="permission" domainObjectName="Permission"/>-->
-        <!--<table tableName="user_role" domainObjectName="UserRole"/>-->
-        <!--<table tableName="role_permission" domainObjectName="RolePermission"/>-->
+        <table tableName="sys_user"/>
+        <table tableName="sys_role"/>
+        <table tableName="sys_menu"/>
+        <table tableName="sys_user_role"/>
+        <table tableName="sys_role_menu"/>
+        <table tableName="sys_log"/>
+
     </context>
 </generatorConfiguration>

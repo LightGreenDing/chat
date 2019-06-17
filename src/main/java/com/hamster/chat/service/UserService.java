@@ -1,7 +1,7 @@
 package com.hamster.chat.service;
 
 import com.hamster.chat.base.ResponseResult;
-import com.hamster.chat.model.User;
+import com.hamster.chat.model.SysUser;
 
 public interface UserService {
     /**
@@ -10,7 +10,7 @@ public interface UserService {
      * @param account 账号
      * @return 用户
      */
-    User findUserByUsername(String account);
+    SysUser findUserByUsername(String account);
 
 
     /**
