@@ -1,11 +1,13 @@
 package com.hamster.chat.base;
 
+import com.hamster.chat.enums.Enum_Response_Code;
+
 public class ResultUtil {
 
     public static ResponseResult success(Object object) {
         ResponseResult result = new ResponseResult();
-        result.setCode(0);
-        result.setMsg("成功");
+        result.setCode(Enum_Response_Code.成功.code);
+        result.setMsg(Enum_Response_Code.成功.desc);
         result.setData(object);
         return result;
     }

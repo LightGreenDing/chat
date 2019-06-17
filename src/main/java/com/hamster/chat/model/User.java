@@ -1,110 +1,153 @@
 package com.hamster.chat.model;
 
 import com.hamster.chat.base.BaseEntity;
+import java.util.Date;
 
 public class User extends BaseEntity {
     /**
-     * 编码
+     * ID
      */
     private Integer id;
 
     /**
-     * 用户名
+     * 账号
+     */
+    private String username;
+
+    /**
+     * 昵称
      */
     private String nickname;
 
     /**
-     * 账号
+     * 状态(1启用0禁用)
      */
-    private String account;
+    private Integer state;
+
+    /**
+     * 创建时间
+     */
+    private Date cretetime;
 
     /**
      * 密码
      */
-    private String password;
+    private String pwd;
 
     /**
-     * 状态(0禁用1启用)
+     * 盐
      */
-    private Boolean status;
+    private String salt;
 
     /**
-     * 编码
-     * @return id 编码
+     * ID
+     * @return id ID
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * 编码
-     * @param id 编码
+     * ID
+     * @param id ID
      */
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * 用户名
-     * @return nickName 用户名
+     * 账号
+     * @return username 账号
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * 账号
+     * @param username 账号
+     */
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
+    /**
+     * 昵称
+     * @return nickname 昵称
      */
     public String getNickname() {
         return nickname;
     }
 
     /**
-     * 用户名
-     * @param nickname 用户名
+     * 昵称
+     * @param nickname 昵称
      */
     public void setNickname(String nickname) {
         this.nickname = nickname == null ? null : nickname.trim();
     }
 
     /**
-     * 账号
-     * @return account 账号
+     * 状态(1启用0禁用)
+     * @return state 状态(1启用0禁用)
      */
-    public String getAccount() {
-        return account;
+    public Integer getState() {
+        return state;
     }
 
     /**
-     * 账号
-     * @param account 账号
+     * 状态(1启用0禁用)
+     * @param state 状态(1启用0禁用)
      */
-    public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    /**
+     * 创建时间
+     * @return cretetime 创建时间
+     */
+    public Date getCretetime() {
+        return cretetime;
+    }
+
+    /**
+     * 创建时间
+     * @param cretetime 创建时间
+     */
+    public void setCretetime(Date cretetime) {
+        this.cretetime = cretetime;
     }
 
     /**
      * 密码
-     * @return password 密码
+     * @return pwd 密码
      */
-    public String getPassword() {
-        return password;
+    public String getPwd() {
+        return pwd;
     }
 
     /**
      * 密码
-     * @param password 密码
+     * @param pwd 密码
      */
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setPwd(String pwd) {
+        this.pwd = pwd == null ? null : pwd.trim();
     }
 
     /**
-     * 状态(0禁用1启用)
-     * @return status 状态(0禁用1启用)
+     * 盐
+     * @return salt 盐
      */
-    public Boolean getStatus() {
-        return status;
+    public String getSalt() {
+        return salt;
     }
 
     /**
-     * 状态(0禁用1启用)
-     * @param status 状态(0禁用1启用)
+     * 盐
+     * @param salt 盐
      */
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
     }
 }

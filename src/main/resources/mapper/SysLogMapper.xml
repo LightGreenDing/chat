@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hamster.chat.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.hamster.chat.model.User">
-    <result column="id" jdbcType="INTEGER" property="id" />
+<mapper namespace="com.hamster.chat.dao.SysLogMapper">
+  <resultMap id="BaseResultMap" type="com.hamster.chat.model.SysLog">
+    <result column="id" jdbcType="BIGINT" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="cretetime" jdbcType="TIMESTAMP" property="cretetime" />
-    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
-    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="operation" jdbcType="VARCHAR" property="operation" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
+    <result column="time" jdbcType="BIGINT" property="time" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,15 +70,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, nickname, state, cretetime, pwd, salt
+    id, username, operation, method, params, time, ip, createtime
   </sql>
-  <select id="selectByExample" parameterType="com.hamster.chat.model.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.hamster.chat.model.SysLogExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user
+    from sys_log
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,22 +86,22 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.hamster.chat.model.UserExample">
-    delete from user
+  <delete id="deleteByExample" parameterType="com.hamster.chat.model.SysLogExample">
+    delete from sys_log
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hamster.chat.model.User">
-    insert into user (id, username, nickname, 
-      state, cretetime, pwd, 
-      salt)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{state,jdbcType=INTEGER}, #{cretetime,jdbcType=TIMESTAMP}, #{pwd,jdbcType=VARCHAR}, 
-      #{salt,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.hamster.chat.model.SysLog">
+    insert into sys_log (id, username, operation, 
+      method, params, time, 
+      ip, createtime)
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{operation,jdbcType=VARCHAR}, 
+      #{method,jdbcType=VARCHAR}, #{params,jdbcType=VARCHAR}, #{time,jdbcType=BIGINT}, 
+      #{ip,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.hamster.chat.model.User">
-    insert into user
+  <insert id="insertSelective" parameterType="com.hamster.chat.model.SysLog">
+    insert into sys_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -108,75 +109,84 @@
       <if test="username != null">
         username,
       </if>
-      <if test="nickname != null">
-        nickname,
+      <if test="operation != null">
+        operation,
       </if>
-      <if test="state != null">
-        state,
+      <if test="method != null">
+        method,
       </if>
-      <if test="cretetime != null">
-        cretetime,
+      <if test="params != null">
+        params,
       </if>
-      <if test="pwd != null">
-        pwd,
+      <if test="time != null">
+        time,
       </if>
-      <if test="salt != null">
-        salt,
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="createtime != null">
+        createtime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="nickname != null">
-        #{nickname,jdbcType=VARCHAR},
+      <if test="operation != null">
+        #{operation,jdbcType=VARCHAR},
       </if>
-      <if test="state != null">
-        #{state,jdbcType=INTEGER},
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
       </if>
-      <if test="cretetime != null">
-        #{cretetime,jdbcType=TIMESTAMP},
+      <if test="params != null">
+        #{params,jdbcType=VARCHAR},
       </if>
-      <if test="pwd != null">
-        #{pwd,jdbcType=VARCHAR},
+      <if test="time != null">
+        #{time,jdbcType=BIGINT},
       </if>
-      <if test="salt != null">
-        #{salt,jdbcType=VARCHAR},
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hamster.chat.model.UserExample" resultType="java.lang.Long">
-    select count(*) from user
+  <select id="countByExample" parameterType="com.hamster.chat.model.SysLogExample" resultType="java.lang.Long">
+    select count(*) from sys_log
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update user
+    update sys_log
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+        id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
-      <if test="record.nickname != null">
-        nickname = #{record.nickname,jdbcType=VARCHAR},
+      <if test="record.operation != null">
+        operation = #{record.operation,jdbcType=VARCHAR},
       </if>
-      <if test="record.state != null">
-        state = #{record.state,jdbcType=INTEGER},
+      <if test="record.method != null">
+        method = #{record.method,jdbcType=VARCHAR},
       </if>
-      <if test="record.cretetime != null">
-        cretetime = #{record.cretetime,jdbcType=TIMESTAMP},
+      <if test="record.params != null">
+        params = #{record.params,jdbcType=VARCHAR},
       </if>
-      <if test="record.pwd != null">
-        pwd = #{record.pwd,jdbcType=VARCHAR},
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=BIGINT},
       </if>
-      <if test="record.salt != null">
-        salt = #{record.salt,jdbcType=VARCHAR},
+      <if test="record.ip != null">
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -184,14 +194,15 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update user
-    set id = #{record.id,jdbcType=INTEGER},
+    update sys_log
+    set id = #{record.id,jdbcType=BIGINT},
       username = #{record.username,jdbcType=VARCHAR},
-      nickname = #{record.nickname,jdbcType=VARCHAR},
-      state = #{record.state,jdbcType=INTEGER},
-      cretetime = #{record.cretetime,jdbcType=TIMESTAMP},
-      pwd = #{record.pwd,jdbcType=VARCHAR},
-      salt = #{record.salt,jdbcType=VARCHAR}
+      operation = #{record.operation,jdbcType=VARCHAR},
+      method = #{record.method,jdbcType=VARCHAR},
+      params = #{record.params,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=BIGINT},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
