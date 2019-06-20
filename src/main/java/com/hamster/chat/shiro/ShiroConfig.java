@@ -49,7 +49,7 @@ public class ShiroConfig {
      * 安全管理器
      */
     @Bean("securityManager")
-    public DefaultWebSecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager) {
+    public DefaultWebSecurityManager securityManager(ShiroRealm userRealm, SessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
         securityManager.setSessionManager(sessionManager);
@@ -66,7 +66,10 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
         shiroFilter.setLoginUrl("/login.html");
-        shiroFilter.setUnauthorizedUrl("/");
+        //成功后跳转
+        shiroFilter.setSuccessUrl("/index");
+        //没权限请求
+        shiroFilter.setUnauthorizedUrl("/403");
 
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/swagger/**", "anon");

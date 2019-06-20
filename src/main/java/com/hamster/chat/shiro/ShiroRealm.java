@@ -25,7 +25,7 @@ import java.util.*;
  * 认证
  */
 @Component
-public class UserRealm extends AuthorizingRealm {
+public class ShiroRealm extends AuthorizingRealm {
     @Autowired
     private SysUserMapper sysUserMapper;
     @Autowired
@@ -77,7 +77,6 @@ public class UserRealm extends AuthorizingRealm {
             AuthenticationToken authcToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 
-
         SysUserExample sysUserExample = new SysUserExample();
         sysUserExample.createCriteria().andUsernameEqualTo(token.getUsername());
         //查询用户信息
@@ -86,7 +85,6 @@ public class UserRealm extends AuthorizingRealm {
         if (user == null) {
             throw new UnknownAccountException("账号或密码不正确");
         }
-
         //账号锁定
         if (user.getStatus() == 0) {
             throw new LockedAccountException("账号已被锁定,请联系管理员");

@@ -32,13 +32,13 @@ public class ShiroUtils {
     }
 
     // 获取用户对象
-    public static SysUser getUserEntity() {
+    public static SysUser getUser() {
         return (SysUser) SecurityUtils.getSubject().getPrincipal();
     }
 
     // 获取用户ID
     public static Long getUserId() {
-        return getUserEntity().getUserId();
+        return getUser().getUserId();
     }
 
     // 赋值

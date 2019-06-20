@@ -7,22 +7,23 @@ import com.hamster.chat.base.ResultUtil;
 import com.hamster.chat.model.SysUser;
 import com.hamster.chat.service.SysUserService;
 import com.hamster.chat.shiro.ShiroUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-
-import static com.hamster.chat.shiro.ShiroUtils.getUserId;
 
 /**
  * 系统用户控制器
  */
+@Api(value = "登录 ")
 @RestController
 @RequestMapping("/sys/user")
 public class SysUserController extends AbstractController {
@@ -32,9 +33,12 @@ public class SysUserController extends AbstractController {
     /**
      * 所有用户列表
      */
-    @RequestMapping("/list")
+    @ApiOperation(value="获取用户列表", notes="根据User对象查询用户信息")
+    @ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, dataType = "User")
+    @GetMapping("/list")
     @RequiresPermissions("sys:user:list")
-    public ResponseResult list(@RequestParam Map<String, Object> params) {
+    public ResponseResult list() {
+        Map<String, Object> params = new HashMap<>();
         PageInfo allPage = sysUserService.getAllPage(params);
         return ResultUtil.success(allPage);
     }
